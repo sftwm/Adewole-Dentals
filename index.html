@@ -1,0 +1,1286 @@
+<!doctype html>
+<!-- =====================================================================
+  ADEWOLE SPECIALIST DENTAL CLINIC - FULL WEBSITE (one page)
+
+  PAGE MAP (top to bottom)
+    1. Header          - logo, menu, appointment button
+    2. Hero            - headline, buttons, 6-photo gallery
+    3. Trust strip     - "Trusted with smiles in Ilorin"
+    4. Services        - photo, services list, emergency box
+    5. Reviews         - 3 patient testimonials
+    6. Featured care   - big photo card with text panel
+    7. Location        - blue section with clinic photo + address
+    8. Stats           - rating numbers that count up
+    9. "You can rely"  - big closing words
+   10. Booking form    - sends the message to WhatsApp
+   11. Footer
+
+  FILE STRUCTURE: <head> holds the CSS (styling). <body> holds the content.
+  The <script> at the very bottom holds the JavaScript (behaviour).
+
+  ADDING YOUR IMAGES: put photos in the "images" folder using the SAME names:
+    hero-1.jpg ... hero-6.jpg, dentists.jpg, featured.jpg, clinic.jpg, smile.jpg
+  (or change the src="..." inside any <img> tag to your own file name)
+====================================================================== -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- correct character set for symbols -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- makes the page scale on phones -->
+    <title>Adewole Specialist Dental Clinic | Ilorin, Kwara State</title>
+    <meta
+      name="description"
+      content="Family, children's, cosmetic and surgical dental care on Oko-Erin Road, Ilorin. Call 0813 153 9685."
+    />
+    <!-- Google result text -->
+    <!-- Adds a class "js" to the page ONLY if JavaScript works. The CSS uses it so
+       content never stays hidden if JavaScript fails. -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap"
+    />
+
+    <style>
+      /* ================================================================
+       1. VARIABLES - named colours/sizes. Use them with var(--name).
+          Change one here and it changes across the whole page.
+       ================================================================ */
+      :root {
+        --blue: #2f5af5; /* buttons and accents */
+        --navy: #0d1b4d; /* dark blue */
+        --ink: #0a0f1f; /* headings */
+        --slate: #4a5578; /* paragraphs */
+        --lavender: #ebb8f5; /* soft purple cards */
+        --coral: #ff8760; /* emergency box */
+        --pale: #eef3ff; /* very light blue background */
+        --line: #e3e8f4; /* thin borders */
+        --radius: 24px; /* round corners on photos */
+        --gap: 20px; /* space between gallery photos */
+      }
+
+      /* ================================================================
+       2. BASE STYLES - apply to the whole page
+       ================================================================ */
+      * {
+        box-sizing: border-box;
+      } /* padding stays inside an element's width */
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      } /* smooth jumps; header won't cover titles */
+      body {
+        margin: 0;
+        background: #fff;
+        color: var(--slate);
+        font:
+          400 18px/1.7 "Outfit",
+          system-ui,
+          sans-serif;
+        overflow-x: hidden; /* stops sideways scrolling on phones */
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        color: var(--ink);
+        line-height: 1.05;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+      } /* keyboard users */
+      .wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+      } /* centres content, limits width */
+      .blue-text {
+        color: var(--blue);
+      }
+
+      /* ================================================================
+       3. BUTTONS - .btn is the blue one; .btn-outline is the white one
+       ================================================================ */
+      .btn {
+        display: inline-block;
+        padding: 16px 34px;
+        border-radius: 10px;
+        border: 1.5px solid var(--blue);
+        background: var(--blue);
+        color: #fff;
+        font:
+          500 1.05rem "Outfit",
+          sans-serif;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s; /* smooth hover animation */
+      }
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px -10px rgba(47, 90, 245, 0.6);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+      .btn-small {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+      }
+
+      /* ================================================================
+       4. HEADER - sticks to the top while you scroll
+       ================================================================ */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid transparent;
+        transition:
+          box-shadow 0.3s,
+          border-color 0.3s;
+      }
+      .header.scrolled {
+        border-color: var(--line);
+        box-shadow: 0 8px 24px -18px rgba(10, 15, 31, 0.5);
+      } /* added by JavaScript */
+      .bar {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding-block: 14px;
+      }
+      .logo {
+        text-decoration: none;
+        line-height: 1;
+        margin-right: auto;
+      } /* margin-right:auto pushes the rest to the right */
+      .logo small {
+        display: block;
+        font-size: 0.7rem;
+        color: var(--slate);
+      }
+      .logo b {
+        font-size: 1.6rem;
+        color: var(--blue);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .nav {
+        display: flex;
+        gap: 28px;
+        font-weight: 500;
+      }
+      .nav a {
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .nav a:hover {
+        color: var(--blue);
+      }
+      .menu-btn {
+        display: none;
+        background: none;
+        border: 0;
+        font-size: 1.8rem;
+        color: var(--ink);
+        cursor: pointer;
+      } /* hidden on desktop */
+
+      /* ================================================================
+       5. HERO - text on the left, gallery on the right (CSS Grid)
+       ================================================================ */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: center;
+        padding-block: 40px;
+      }
+      .hero h1 {
+        font-size: clamp(3rem, 7vw, 6rem);
+        font-weight: 800;
+      } /* clamp(min, ideal, max) = responsive text size */
+      .hero-sub {
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        font-weight: 300;
+        line-height: 1.1;
+        margin: 10px 0 30px;
+      }
+      .hero p {
+        max-width: 46ch;
+        margin: 0 0 36px;
+      }
+      .hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      /* GALLERY: 3 columns x 2 photos. aspect-ratio 1/1 keeps it a square at any width. */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--gap);
+        aspect-ratio: 1/1;
+      }
+      .gallery-col {
+        display: grid;
+        gap: var(--gap);
+        min-height: 0;
+      }
+      .col-a {
+        grid-template-rows: 2fr 3fr;
+      } /* short photo on top, tall below */
+      .col-b {
+        grid-template-rows: 3fr 2fr;
+      } /* tall photo on top, short below */
+      .gallery figure {
+        margin: 0;
+        overflow: hidden;
+        border-radius: var(--radius);
+        background: #e8ecf7;
+        min-height: 0;
+      }
+      .gallery img,
+      .cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .gallery img,
+      .cover:hover{
+        transition: .5s;
+        
+      }
+      /* fills the box, crops extra, never stretches */
+      .gallery img {
+        transition: transform 0.6s ease;
+      }
+      .gallery figure:hover img {
+        transform: scale(1.06);
+      } /* zoom on hover */
+
+      /* ================================================================
+       6. TRUST STRIP
+       ================================================================ */
+      .trust {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        padding-block: 40px 70px;
+      }
+      .trust h2 {
+        font-size: clamp(1.9rem, 4vw, 2.9rem);
+        font-weight: 600;
+      }
+      .trust p {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      /* ================================================================
+       7. SERVICES (photo | list | emergency box) - 3 columns
+       ================================================================ */
+      .services {
+        display: grid;
+        grid-template-columns: minmax(260px, 1fr) 1.7fr minmax(260px, 1fr);
+        gap: 48px;
+        align-items: start;
+        padding-bottom: 90px;
+      }
+      .services-photo {
+        aspect-ratio: 7/10;
+        border-radius: 28px;
+        background: var(--lavender);
+        overflow: hidden;
+      }
+      .services-text h2 {
+        font-size: clamp(2rem, 3.4vw, 3.2rem);
+        font-weight: 500;
+      }
+      .services-text h3 {
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: var(--slate);
+        margin-top: 8px;
+      }
+      .service-list {
+        list-style: none;
+        margin: 44px 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px 32px;
+      }
+      .service-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .info-icon {
+        flex: none;
+        width: 20px;
+        height: 20px;
+        border: 1.5px solid var(--slate);
+        border-radius: 50%; /* 50% = circle */
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--slate);
+        display: grid;
+        place-items: center;
+      }
+
+      /* EMERGENCY BOX */
+      .emergency {
+        background: var(--coral);
+        color: #fff;
+        border-radius: 18px;
+        padding: 28px;
+      }
+      .emergency h3 {
+        color: #fff;
+        font-size: 2.6rem;
+        font-weight: 500;
+      }
+      .emergency p {
+        margin: 10px 0 22px;
+        font-weight: 500;
+        line-height: 1.6;
+      }
+      .emergency-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .emergency a {
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.25rem;
+        text-decoration: underline;
+      }
+      .cross {
+        flex: none;
+        position: relative;
+        width: 78px;
+        height: 78px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.35);
+      }
+      .cross::before,
+      .cross::after {
+        content: "";
+        position: absolute;
+        background: #d93a1c;
+        border-radius: 4px; /* two bars make a plus sign */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .cross::before {
+        width: 44px;
+        height: 14px;
+      }
+      .cross::after {
+        width: 14px;
+        height: 44px;
+      }
+      .pulse {
+        animation: pulse 2.4s infinite;
+      } /* the glowing ring around the phone link */
+
+      /* ================================================================
+       8. REVIEWS
+       ================================================================ */
+      .section-head {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .section-head h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 600;
+      }
+      .reviews {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .review {
+        margin: 0;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .review:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 36px -20px rgba(10, 15, 31, 0.35);
+      }
+      .stars {
+        color: #f0a020;
+        letter-spacing: 3px;
+      }
+      .review p {
+        margin: 0;
+        color: var(--ink);
+      }
+      .review cite {
+        font-style: normal;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .review small {
+        display: block;
+        color: var(--slate);
+        font-weight: 400;
+      }
+
+      /* ================================================================
+       9. FEATURED CARD - photo fills the card, text panel sits on top
+       ================================================================ */
+      .featured {
+        position: relative;
+        min-height: 420px;
+        border-radius: 28px;
+        overflow: hidden;
+        background: var(--navy);
+        display: flex;
+        align-items: flex-end;
+      }
+      .featured img {
+        position: absolute;
+        inset: 0;
+      } /* inset:0 = stretch to all four edges of the card */
+      .featured-panel {
+        position: relative;
+        margin: 22px;
+        padding: 28px;
+        max-width: 480px;
+        background: var(--lavender);
+        border-radius: 18px;
+      }
+      .badge {
+        display: inline-block;
+        background: #fff;
+        color: var(--blue);
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 4px 14px;
+        border-radius: 999px;
+        margin-bottom: 12px;
+      }
+      .featured-panel h3 {
+        font-size: 1.9rem;
+        margin-bottom: 8px;
+      }
+      .featured-panel p {
+        margin: 0 0 14px;
+        color: var(--ink);
+      }
+      .featured-panel a {
+        color: var(--blue);
+        font-weight: 600;
+      }
+
+      /* ================================================================
+       10. LOCATION (blue background section)
+       ================================================================ */
+      .location {
+        background: var(--blue);
+        color: #fff;
+        padding-block: 80px;
+        margin-top: 80px;
+      }
+      .location-photo {
+        height: min(420px, 55vw);
+        min-height: 220px;
+        border-radius: 26px;
+        overflow: hidden;
+        background: #1a3bc0;
+        margin-bottom: 44px;
+      }
+      .location h2 {
+        color: #fff;
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+        font-weight: 600;
+        max-width: 18ch;
+      }
+      .location h3 {
+        color: #dfe7ff;
+        font-weight: 300;
+        font-size: 1.3rem;
+        margin: 8px 0 24px;
+      }
+      .location-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 28px;
+        max-width: 480px;
+      }
+      .location-card h4 {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+      .location-card p {
+        margin: 0 0 4px;
+      }
+      .location-card .hero-buttons {
+        margin-top: 18px;
+      }
+
+      /* ================================================================
+       11. STATS
+       ================================================================ */
+      .stats-section {
+        padding-top: 80px;
+      }
+      .stats-section h2 {
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+        font-weight: 600;
+        margin-bottom: 28px;
+      }
+      .big-photo {
+        height: min(440px, 62vw);
+        min-height: 240px;
+        border-radius: 28px;
+        overflow: hidden;
+        background: var(--lavender);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        margin-top: 28px;
+      }
+      .stat b {
+        display: block;
+        font-size: clamp(3rem, 7vw, 4.6rem);
+        font-weight: 800;
+        color: var(--blue);
+        line-height: 1;
+      }
+      .stat > span {
+        font-weight: 500;
+      }
+      .stat p {
+        margin: 14px 0 4px;
+        color: var(--ink);
+      }
+      .stat cite {
+        font-style: normal;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      /* ================================================================
+       12. "YOU CAN RELY ON" + BOOKING FORM
+       ================================================================ */
+      .rely {
+        text-align: center;
+        padding-block: 80px 30px;
+      }
+      .rely p {
+        margin: 0;
+        font-weight: 500;
+      }
+      .rely b {
+        display: block;
+        font-size: clamp(3rem, 11vw, 7rem);
+        color: var(--blue);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+      .form-card {
+        background: var(--pale);
+        border-radius: 28px;
+        padding: 40px;
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .form-card h3 {
+        font-size: clamp(1.7rem, 3vw, 2.3rem);
+        margin-bottom: 8px;
+      }
+      .form-card p {
+        margin: 0;
+      }
+      .form {
+        display: grid;
+        gap: 12px;
+      }
+      .form input,
+      .form select {
+        width: 100%;
+        padding: 15px 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fff;
+        color: var(--ink);
+        font: inherit;
+      }
+      .form input:focus,
+      .form select:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 4px rgba(47, 90, 245, 0.15);
+        outline: 0;
+      }
+
+      /* ================================================================
+       13. FOOTER
+       ================================================================ */
+      .footer {
+        margin-top: 80px;
+        border-top: 1px solid var(--line);
+        padding-block: 48px 26px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 26px;
+        font-size: 0.95rem;
+      }
+      .footer h4 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+      .footer ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+      }
+      .footer a {
+        color: var(--slate);
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .footer-big {
+        font-size: clamp(2.4rem, 8vw, 6rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: var(--blue);
+        margin: 48px 0 20px;
+      }
+      .copyright {
+        font-size: 0.88rem;
+      }
+
+      /* ================================================================
+       14. ANIMATIONS
+       @keyframes = start and end states. "animation" plays them.
+       ================================================================ */
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8);
+        }
+        70%,
+        100% {
+          box-shadow: 0 0 0 14px rgba(255, 255, 255, 0);
+        }
+      }
+      .rise {
+        animation: rise 0.8s ease both;
+      } /* plays when the page loads */
+      .delay1 {
+        animation-delay: 0.12s;
+      }
+      .delay2 {
+        animation-delay: 0.24s;
+      }
+      .delay3 {
+        animation-delay: 0.36s;
+      }
+      .gallery figure {
+        animation: rise 0.9s 0.3s ease both;
+      }
+
+      /* SCROLL REVEAL: elements with class "rv" start hidden and slide in when
+       JavaScript adds the class "in" (as they scroll into view). */
+      .js .rv {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+        transition-delay: var(--d, 0s);
+      }
+      .js .rv.in {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* People who turn on "reduce motion" on their device get no animation */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+        .js .rv {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ================================================================
+       15. RESPONSIVE RULES (media queries)
+       "max-width: 1100px" = apply when the screen is 1100px wide OR LESS.
+       ================================================================ */
+      @media (max-width: 1100px) {
+        /* TABLETS */
+        .services {
+          grid-template-columns: 1fr 1.5fr;
+        }
+        .emergency {
+          grid-column: 1 / -1;
+        } /* spans the full width, under the photo + text */
+      }
+      @media (max-width: 860px) {
+        /* SMALL TABLETS */
+        .hero,
+        .trust,
+        .form-card {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        .reviews,
+        .stats {
+          grid-template-columns: 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .form-card {
+          padding: 26px;
+        }
+        /* mobile menu: the links hide and the ☰ button appears */
+        .menu-btn {
+          display: block;
+        }
+        .bar > .btn {
+          display: none;
+        }
+        .nav {
+          display: none;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 100%;
+          flex-direction: column;
+          gap: 0;
+          background: #fff;
+          padding: 8px 24px 18px;
+          border-bottom: 1px solid var(--line);
+        }
+        .nav.open {
+          display: flex;
+        } /* JavaScript adds "open" when ☰ is tapped */
+        .nav a {
+          padding: 13px 0;
+        }
+      }
+      @media (max-width: 640px) {
+        /* PHONES */
+        body {
+          font-size: 17px;
+        }
+        .services {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding-bottom: 60px;
+        }
+        .services-photo {
+          aspect-ratio: 4/5;
+        }
+        .service-list {
+          grid-template-columns: 1fr;
+          margin: 32px 0;
+        }
+        .btn {
+          width: 100%;
+          text-align: center;
+        } /* full-width buttons are easier to tap */
+        .btn-small {
+          width: auto;
+        }
+        .gallery {
+          --gap: 12px;
+        }
+        .location {
+          padding-block: 56px;
+          margin-top: 56px;
+        }
+        .stats-section {
+          padding-top: 56px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ===============================================================
+       1. HEADER
+       =============================================================== -->
+    <header class="header" id="header">
+      <div class="wrap bar">
+        <a
+          class="logo"
+          href="#top"
+          aria-label="Adewole Specialist Dental Clinic - home"
+        >
+          <small>specialist dental clinic</small><b>Adewole</b>
+        </a>
+        <!-- Links jump to sections that have the matching id="..." -->
+        <nav class="nav" id="nav" aria-label="Main">
+          <a href="#services">Services</a>
+          <a href="#reviews">Testimonials</a>
+          <a href="#about">About</a>
+          <a href="#location">Location</a>
+          <a href="#book">Contact</a>
+        </nav>
+        <a class="btn btn-small" href="#book">Request appointment</a>
+        <button
+          class="menu-btn"
+          id="menu-btn"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          &#9776;
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- =============================================================
+         2. HERO - headline + buttons (left), six photos (right)
+         ============================================================= -->
+      <section class="wrap hero">
+        <div>
+          <h1 class="rise">Every smile is welcome</h1>
+          <p class="hero-sub rise delay1">The friendly family dental clinic</p>
+          <p class="rise delay2">
+            Whether you need a routine check-up, a tooth taken care of, or a
+            brighter smile, our team in Ilorin is here to look after you and
+            your family.
+          </p>
+          <div class="hero-buttons rise delay3">
+            <a class="btn" href="#services">View Our Services</a>
+            <!-- wa.me opens WhatsApp: 234 = Nigeria code + number without the first 0 -->
+            <a
+              class="btn btn-outline"
+              href="https://wa.me/2348131539685?text=Hello%2C%20I%27d%20like%20to%20book%20an%20appointment."
+              >Book Appointment</a
+            >
+          </div>
+        </div>
+
+        <!-- GALLERY: replace the files in the images folder with your photos.
+           alt="..." describes the photo for screen readers - update it to match. -->
+        <div class="gallery">
+          <div class="gallery-col col-a">
+            <figure>
+              <img src="image.png" alt="Patient smiling widely" />
+            </figure>
+            <figure>
+              <img src="image copy.png" alt="Patient with braces smiling" />
+            </figure>
+          </div>
+          <div class="gallery-col col-b">
+            <figure>
+              <img src="image copy 5.png" alt="Happy patient laughing" />
+            </figure>
+            <figure>
+              <img
+                src="image copy 4.png"
+                alt="Older patient with a bright smile"
+              />
+            </figure>
+          </div>
+          <div class="gallery-col col-a">
+            <figure>
+              <img src="image copy 3.png" alt="Child brushing teeth" />
+            </figure>
+            <figure>
+              <img
+                src="image copy 2.png"
+                alt="Patient smiling at the camera"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================
+         3. TRUST STRIP  (class "rv" = slides in when scrolled into view)
+         ============================================================= -->
+      <section class="wrap trust rv" id="about">
+        <h2>Trusted with smiles in <span class="blue-text">Ilorin</span></h2>
+        <p>
+          Rated 4.5 out of 5 by patients on Google. From children to
+          grandparents, families across Kwara State come to us for care that is
+          gentle, clear and close to home.
+        </p>
+      </section>
+
+      <!-- =============================================================
+         4. SERVICES - photo | services list | emergency box
+         ============================================================= -->
+      <section class="wrap services" id="services">
+        <div class="services-photo rv">
+          <img
+            class="cover"
+            src="image copy 6.png"
+            alt="Dentists at Adewole Specialist Dental Clinic"
+          />
+        </div>
+
+        <div class="services-text rv" style="--d: 0.1s">
+          <h2>Comprehensive dental care</h2>
+          <h3>Our services include</h3>
+          <!-- ul = list, li = one item. The span is the little "i" circle. -->
+          <ul class="service-list">
+            <li><span class="info-icon">i</span> Children's dentistry</li>
+            <li><span class="info-icon">i</span> Family dental care</li>
+            <li><span class="info-icon">i</span> Dental surgery</li>
+            <li><span class="info-icon">i</span> Cosmetic dentistry</li>
+            <li><span class="info-icon">i</span> Dental rehabilitation</li>
+            <li><span class="info-icon">i</span> Preventive dentistry</li>
+          </ul>
+          <a class="btn" href="#book">Book a visit</a>
+        </div>
+
+        <aside class="emergency rv" style="--d: 0.2s">
+          <h3>Emergency</h3>
+          <p>
+            Need urgent dental care? Call us now. We are listed as open 24
+            hours.
+          </p>
+          <div class="emergency-row">
+            <!-- tel: makes the number tappable on phones -->
+            <a class="pulse" href="tel:+2348131539685">0813 153 9685</a>
+            <span class="cross" aria-hidden="true"></span>
+          </div>
+        </aside>
+      </section>
+
+      <!-- =============================================================
+         5. REVIEWS - real Google reviews. "--d" delays each card a little.
+         ============================================================= -->
+      <section class="wrap" id="reviews">
+        <div class="section-head rv">
+          <h2>Real stories, real smiles</h2>
+          <a
+            class="btn btn-outline btn-small"
+            href="https://www.google.com/maps/search/?api=1&query=Adewole+Specialist+Dental+Clinic+Oko+Erin+Ilorin"
+            >Leave us a testimonial</a
+          >
+        </div>
+        <div class="reviews">
+          <blockquote class="review rv">
+            <span class="stars" aria-label="5 stars">★★★★★</span>
+            <p>
+              I got the best smile in this clinic. Doctor Chris did a good job.
+            </p>
+            <cite>Alayo Ayomide <small>Google review</small></cite>
+          </blockquote>
+          <blockquote class="review rv" style="--d: 0.12s">
+            <span class="stars" aria-label="5 stars">★★★★★</span>
+            <p>
+              Dr. Chris treated me well at Adewole Specialist Dental Clinic.
+              It's the best dental clinic you can find in Kwara state.
+            </p>
+            <cite>Olayemi Oyedokun <small>Google review</small></cite>
+          </blockquote>
+          <blockquote class="review rv" style="--d: 0.24s">
+            <span class="stars" aria-label="5 stars">★★★★★</span>
+            <p>I got the best dental care in this awesome clinic.</p>
+            <cite>Kamaldeen Malik <small>Google review</small></cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- =============================================================
+         7. LOCATION - blue background, clinic photo, address card
+         ============================================================= -->
+      <section class="location" id="location">
+        <div class="wrap">
+          <div class="location-photo rv">
+            <img
+              class="cover"
+              src="images/clinic.jpg"
+              alt="Adewole Specialist Dental Clinic building"
+            />
+          </div>
+          <h2 class="rv">Discover the Adewole difference</h2>
+          <h3 class="rv">Our location</h3>
+          <div class="location-card rv">
+            <h4>Oko-Erin Road, Ilorin</h4>
+            <p>
+              No. 25 Oko-Erin Road, opposite Laurel School, Ilorin, Kwara State
+            </p>
+            <p>Open 24 hours (call ahead to confirm)</p>
+            <p>0813 153 9685</p>
+            <div class="hero-buttons">
+              <a class="btn btn-small" href="tel:+2348131539685">Call</a>
+              <a
+                class="btn btn-outline btn-small"
+                href="https://www.google.com/maps/search/?api=1&query=Adewole+Specialist+Dental+Clinic+Oko+Erin+Ilorin"
+                >View location</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================
+         8. STATS - data-n is the number the counter counts up to;
+         data-d is how many decimals to show.
+         ============================================================= -->
+      <section class="wrap stats-section">
+        <h2 class="rv">Care you can count on</h2>
+        <div class="big-photo rv">
+          <img
+            class="cover"
+            src="image copy 7.png"
+            alt="A happy patient smiling"
+          />
+        </div>
+        <div class="stats">
+          <div class="stat rv">
+            <b data-n="4.5" data-d="1">4.5</b><span>Average Google rating</span>
+            <p>
+              Dr. Chris treated me well. It's the best dental clinic you can
+              find in Kwara state.
+            </p>
+            <cite>Olayemi Oyedokun</cite>
+          </div>
+          <div class="stat rv" style="--d: 0.15s">
+            <b data-n="17" data-d="0">17</b
+            ><span>Patient reviews on Google</span>
+            <p>I got the best dental care in this awesome clinic.</p>
+            <cite>Kamaldeen Malik</cite>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. CLOSING WORDS -->
+      <div class="wrap rely rv">
+        <p>You can rely on</p>
+        <b>Adewole</b>
+      </div>
+
+      <!-- =============================================================
+         10. BOOKING FORM - the JavaScript at the bottom turns what the
+         visitor types into a WhatsApp message to the clinic.
+         ============================================================= -->
+      <section class="wrap rv" id="book">
+        <div class="form-card">
+          <div>
+            <h3>Book your appointment</h3>
+            <p>
+              Tell us what you need. We'll reply on WhatsApp to confirm a time.
+            </p>
+          </div>
+          <form class="form" id="booking-form">
+            <input
+              type="text"
+              id="name"
+              placeholder="Your name"
+              aria-label="Your name"
+              required
+            />
+            <select id="service" aria-label="Service needed">
+              <option>Check-up</option>
+              <option>Children's dentistry</option>
+              <option>Dental surgery</option>
+              <option>Cosmetic dentistry</option>
+              <option>Dental rehabilitation</option>
+              <option>Emergency</option>
+            </select>
+            <button class="btn" type="submit">Send on WhatsApp</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- =================================================================
+       11. FOOTER
+       ================================================================= -->
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <h4>Adewole Specialist Dental Clinic</h4>
+            <ul>
+              <li>No. 25 Oko-Erin Road, Ilorin</li>
+              <li>Kwara State</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#services">All services</a></li>
+              <li><a href="#book">Appointments</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>About</h4>
+            <ul>
+              <li><a href="#about">About us</a></li>
+              <li><a href="#reviews">Testimonials</a></li>
+              <li><a href="#location">Location</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <ul>
+              <li><a href="tel:+2348131539685">0813 153 9685</a></li>
+              <li><a href="https://wa.me/2348131539685">WhatsApp</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="footer-big">Dentistry, done with care.</p>
+        <div class="copyright">
+          &copy; Adewole Specialist Dental Clinic, Ilorin, Kwara State.
+        </div>
+      </div>
+    </footer>
+
+    <!-- =================================================================
+       JAVASCRIPT - the behaviour. Each block is explained.
+       The code is wrapped in (function(){ ... })(); so its variables
+       stay private and can't clash with anything else.
+       ================================================================= -->
+    <script>
+      (function () {
+        var doc = document;
+
+        // --- A. MOBILE MENU: tapping ☰ shows/hides the links -----------
+        var menuBtn = doc.getElementById("menu-btn");
+        var nav = doc.getElementById("nav");
+        menuBtn.onclick = function () {
+          var isOpen = nav.classList.toggle("open"); // toggle = add the class if missing, remove if present
+          menuBtn.setAttribute("aria-expanded", isOpen); // tells screen readers if the menu is open
+        };
+        nav.onclick = function () {
+          // close the menu after tapping a link
+          nav.classList.remove("open");
+          menuBtn.setAttribute("aria-expanded", "false");
+        };
+
+        // --- B. HEADER SHADOW: adds "scrolled" once you scroll down ----
+        var header = doc.getElementById("header");
+        addEventListener(
+          "scroll",
+          function () {
+            header.classList.toggle("scrolled", scrollY > 10);
+          },
+          { passive: true },
+        );
+
+        // --- C. COUNTING NUMBERS: counts from 0 up to data-n ----------
+        function countUp(el) {
+          var target = parseFloat(el.dataset.n); // the final number, e.g. 4.5
+          var decimals = +el.dataset.d; // how many decimal places
+          var start = performance.now();
+          function step(now) {
+            var progress = Math.min((now - start) / 1200, 1); // 0 to 1 over 1.2 seconds
+            var eased = 1 - Math.pow(1 - progress, 3); // starts fast, slows down
+            el.textContent = (target * eased).toFixed(decimals);
+            if (progress < 1) requestAnimationFrame(step); // run again next frame
+          }
+          requestAnimationFrame(step);
+        }
+
+        // --- D. SCROLL REVEAL: watches ".rv" elements; when one enters
+        //        the screen, add the class "in" so the CSS animates it ----
+        var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var items = doc.querySelectorAll(".rv");
+        if ("IntersectionObserver" in window && !reduce) {
+          var watcher = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("in");
+                var num = entry.target.querySelector("[data-n]"); // is there a counter inside?
+                if (num) countUp(num);
+                watcher.unobserve(entry.target); // only animate once
+              });
+            },
+            { threshold: 0.15 },
+          ); // 15% visible = trigger
+          items.forEach(function (el) {
+            watcher.observe(el);
+          });
+        } else {
+          items.forEach(function (el) {
+            el.classList.add("in");
+          }); // no animation support: just show everything
+        }
+
+        // --- E. BOOKING FORM: builds a WhatsApp message and opens it ---
+        doc.getElementById("booking-form").onsubmit = function (e) {
+          e.preventDefault(); // stop the normal form reload
+          var text =
+            "Hello, my name is " +
+            doc.getElementById("name").value +
+            ". I would like to book: " +
+            doc.getElementById("service").value +
+            ".";
+          window.open(
+            "https://wa.me/2348131539685?text=" + encodeURIComponent(text),
+            "_blank",
+          );
+        };
+      })();
+    </script>
+  </body>
+</html>
